@@ -13,16 +13,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum Season {
-  FALL
-  SPRING
-  WINTER
-  SUMMER
-}
+
 
 model Course { 
   id String @id @default(cuid())
   name String 
+  season String @default("fall")
   year Int @default(2024)
-  season Season @default(FALL)
 }
