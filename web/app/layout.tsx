@@ -5,6 +5,9 @@ export const metadata: Metadata = {
   title: "belch",
 };
 
+import { Inter } from 'next/font/google'
+const inter = Inter({ subsets: ['latin'] })
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -12,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
+      <body className={`${inter.className} p-4 max-w-sm`}>
         {children}
       </body>
     </html>
