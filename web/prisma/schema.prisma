@@ -7,17 +7,26 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Course { 
-  id String @id @default(cuid())
-  name String 
-  season String @default("fall")
-  year Int @default(2024)
-  documents File[]
+model User {
+  id        String   @id
+  phone     String   @unique
+  firstName String?
+  lastName  String?
+  courses   Course[]
 }
 
-model File { 
-  id String @id @default(cuid())
-  url String
-  course Course @relation(fields: [courseId], references: [id])
-  courseId String
+model Course {
+  id        Int    @id @default(autoincrement())
+  name      String
+  season    String @default("fall")
+  year      Int    @default(2024)
+  documents File[]
+  user      User   @relation(fields: [userId], references: [id])
+  userId    String
+}
+
+model File {
+  url      String @id @unique
+  course   Course @relation(fields: [courseId], references: [id])
+  courseId Int
 }

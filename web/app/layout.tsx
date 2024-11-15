@@ -4,9 +4,10 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "belch",
 };
+import { ClerkProvider } from "@clerk/nextjs";
 
-import { Inter } from 'next/font/google'
-const inter = Inter({ subsets: ['latin'] })
+import { Inter } from "next/font/google";
+const inter = Inter({ subsets: ["latin"] });
 
 export default function RootLayout({
   children,
@@ -14,10 +15,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${inter.className} p-4 max-w-sm`}>
-        {children}
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body className={`${inter.className} p-4 max-w-sm`}>{children}</body>
+      </html>
+    </ClerkProvider>
   );
 }

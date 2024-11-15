@@ -1,7 +1,14 @@
 import { db } from "@/lib/db";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { auth } from "@clerk/nextjs/server";
 export default async function NewCourse() {
+  const { userId } = await auth();
+
+  if (!userId) {
+    return;
+  }
+
   return (
     <div>
       <nav>
@@ -24,6 +31,7 @@ export default async function NewCourse() {
                 name: name as string,
                 season: season as string,
                 year: parseInt(year as string),
+                userId,
               },
             });
             redirect("/");
