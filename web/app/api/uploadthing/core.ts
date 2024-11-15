@@ -1,25 +1,32 @@
 import { createUploadthing, type FileRouter } from "uploadthing/next";
-import {UploadThingError} from 'uploadthing/server'
+import { UploadThingError } from "uploadthing/server";
 
-const f = createUploadthing()
-const auth = (req: Request) => {
-  console.log("auth", req)
-  return { id: "fakeId"}
-}
-
-export const ourFileRouter = { 
+const f = createUploadthing();
+import { auth } from "@clerk/nextjs/server";
+import { db } from "@/lib/db";
+export const ourFileRouter = {
   fileUploader: f({
-   pdf: {maxFileCount: 10, maxFileSize: "128MB"}
-  }).middleware(async ({req}) => { 
-    const user = await auth(req)
-    if (!user) throw new UploadThingError("Unauthorized")
-      return {userId: user.id}
-  }).onUploadComplete(async ({metadata, file}) => { 
-    console.log("Upload complete for userId:", metadata.userId);
-    console.log("file url", file.url)
-    return {uploadedBy: metadata.userId}
-  }), 
+    pdf: { maxFileCount: 1, maxFileSize: "16MB" },
+    image: { maxFileCount: 1, maxFileSize: "16MB" },
+  })
+    .middleware(async () => {
+      const { userId } = await auth();
+      if (!userId) {
+        throw new UploadThingError("Unauthorized");
+      }
+      return { userId };
+    })
+    .onUploadComplete(async ({ metadata, file }) => {
+      console.log("Upload complete for userId:", metadata.userId);
+      console.log("file url", file.url);
+      await db.file.create({
+        data: {
+          url: file.url,
+          userId: metadata.userId,
+        },
+      });
+      return { uploadedBy: metadata.userId };
+    }),
+} satisfies FileRouter;
 
-} satisfies FileRouter
-
-export type OurFileRouter = typeof ourFileRouter
+export type OurFileRouter = typeof ourFileRouter;
