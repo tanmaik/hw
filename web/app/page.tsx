@@ -28,10 +28,7 @@ async function WeatherGreeting() {
     }
 
     const weatherres = await fetch(
-      `https://api.weather.gov/points/${lat},${lon}`, 
-      { 
-        cache: "no-store"
-      }
+      `https://api.weather.gov/points/${lat},${lon}`
     );
     const weatherdata = await weatherres.json();
     const forecasturl = weatherdata.properties.forecast;
