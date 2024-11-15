@@ -1,5 +1,10 @@
 from langchain_community.document_loaders import PyPDFLoader
 
+import wget
+
+url = "https://example.com/documents/syllabi/MATH3250.pdf"  # Replace with actual URL
+wget.download(url, "documents/syllabi/MATH3250.pdf")
+
 loader = PyPDFLoader("documents/syllabi/MATH3250.pdf")
 pages = loader.load_and_split()
 
