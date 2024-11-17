@@ -1,6 +1,7 @@
 import { db } from "@/lib/db";
 import Link from "next/link";
 import { auth } from "@clerk/nextjs/server";
+import UploadClassContextButton from "./upload-button";
 
 export default async function CoursePage({
   params,
@@ -8,14 +9,13 @@ export default async function CoursePage({
   params: { id: string };
 }) {
   const { userId } = await auth();
-
   if (!userId) {
     return;
   }
 
   const course = await db.course.findUnique({
     where: {
-      id: parseInt(params.id),
+      id: parseInt((await params).id),
     },
   });
 
@@ -32,6 +32,24 @@ export default async function CoursePage({
       </div>
     );
   }
+
+  async function attachContext(fileUrl: string) {
+    "use server";
+    await db.file.create({
+      data: {
+        url: fileUrl,
+        userId: userId,
+        courseId: parseInt((await params).id),
+      },
+    });
+  }
+
+  const files = await db.file.findMany({
+    where: {
+      courseId: parseInt((await params).id),
+    },
+  });
+
   return (
     <div>
       <nav>
@@ -45,8 +63,10 @@ export default async function CoursePage({
         <p>
           {course.season} {course.year}
         </p>
-        <h1 className="mt-4">upload class information documents</h1>
-        
+        <div className="mt-4">
+          <p>class context</p>
+          <UploadClassContextButton attachContext={attachContext} />
+        </div>
       </div>
     </div>
   );

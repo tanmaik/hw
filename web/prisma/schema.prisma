@@ -31,7 +31,7 @@ enum TaskType {
   HOMEWORK
   EXAM
   STUDY
-} 
+}
 
 model Task {
   id       Int    @id @default(autoincrement())
@@ -42,10 +42,9 @@ model Task {
 }
 
 model File {
-  id       Int     @id @default(autoincrement())
-  url      String  @unique
-  user     User    @relation(fields: [userId], references: [id])
-  userId   String
+  url      String  @id @unique @default("")
+  user     User?   @relation(fields: [userId], references: [id])
+  userId   String?
   course   Course? @relation(fields: [courseId], references: [id])
   courseId Int?
   task     Task?   @relation(fields: [taskId], references: [id])

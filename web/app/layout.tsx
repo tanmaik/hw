@@ -1,6 +1,8 @@
 import "./globals.css";
 import type { Metadata } from "next";
-
+import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
+import { extractRouterConfig } from "uploadthing/server";
+import { fileRouter } from "./api/uploadthing/core";
 export const metadata: Metadata = {
   title: "belch",
 };
@@ -17,6 +19,7 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
+        <NextSSRPlugin routerConfig={extractRouterConfig(fileRouter)} />
         <body className={`${inter.className} p-4 max-w-sm`}>{children}</body>
       </html>
     </ClerkProvider>
