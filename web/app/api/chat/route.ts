@@ -9,7 +9,6 @@ export async function POST(request: Request) {
     model: openai("gpt-4o"),
     messages,
     tools: {
-      // server-side tool with execute function:
       getWeatherInformation: {
         description: "show the weather in a given city to the user",
         parameters: z.object({ city: z.string() }),
@@ -29,6 +28,7 @@ export async function POST(request: Request) {
           };
         },
       },
+      // server-side tool with execute function:
       // client-side tool that starts user interaction:
       askForConfirmation: {
         description: "Ask the user for confirmation.",
