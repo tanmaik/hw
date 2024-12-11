@@ -1,8 +1,5 @@
-from api.main import app
-
-def main():
-    app.run(debug=True)
+from api.main import start_server
 
 if __name__ == "__main__":
-    main()
+    start_server()
 

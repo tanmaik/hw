@@ -1,5 +1,3 @@
-import { openai } from "@ai-sdk/openai";
-import { streamText } from "ai";
 import { z } from "zod";
 
 export async function POST(request: Request) {
