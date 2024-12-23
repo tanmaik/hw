@@ -1,6 +1,7 @@
 # Environment files
 .env
 web/.env
+.turbo/
 *.db
 # Allow example environment files
 !.env.example

@@ -1,0 +1,11 @@
+{
+  "name": "api",
+  "scripts": {
+    "dev": "nodemon --watch . --exec \"poetry run python3 hw.py\"",
+    "build": "echo \"(No Python build step)\"",
+    "start": "poetry run python3 hw.py"
+  },
+  "devDependencies": {
+    "nodemon": "2.x"
+  }
+}
