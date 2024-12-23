@@ -1,6 +1,7 @@
 import os
 import sys
-
+from dotenv import load_dotenv
+load_dotenv()
 from langchain_openai import ChatOpenAI
 import json
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -8,7 +9,6 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import asyncio
 
 from browser_use import Agent, Browser, Controller
-from browser_use.browser.context import BrowserContextConfig
 from browser_use.browser.browser import BrowserConfig
 
 
@@ -26,7 +26,7 @@ async def main():
       model = ChatOpenAI(model='gpt-4o')
    
       agent1 = Agent(
-            task='Open canvas.its.virginia.edu and look at my assignments.',
+            task='Open canvas.its.virginia.edu and go through each of the classes and find the teachers names. You can ask me to login when you get to an authentication screen. ',
             llm=model,
             browser_context=context,
             controller=controller

@@ -1,7 +1,7 @@
 # Environment files
 .env
 web/.env
-
+*.db
 # Allow example environment files
 !.env.example
 !web/.env.example
