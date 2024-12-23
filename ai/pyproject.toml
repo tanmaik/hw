@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "hw"
+name = "ai"
 version = "0.1.0"
 description = ""
 authors = ["Tanmai Kalisipudi <tanmai.kalisipudi@gmail.com>"]
