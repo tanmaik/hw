@@ -5,7 +5,8 @@ web/.env
 # Allow example environment files
 !.env.example
 !web/.env.example
-
+auth_state.json
+auth*.json
 # Python
 __pycache__/
 *.py[cod]
