@@ -1,12 +1,20 @@
-import { auth } from "@/auth";
-import SignIn from "@/components/sign-in";
+import { auth, signOut } from "@/auth";
+import { redirect } from "next/navigation";
+
 export default async function Home() {
   const session = await auth();
-  if (!session?.user)
-    return (
-      <div>
-        you are not signed in. please <SignIn />
-      </div>
-    );
-  return <div>you are signed in {JSON.stringify(session)}</div>;
+  if (!session?.user) redirect("/login");
+  return (
+    <div>
+      <h1>you are signed in {JSON.stringify(session)}</h1>
+      <button
+        onClick={async () => {
+          "use server";
+          await signOut();
+        }}
+      >
+        sign out
+      </button>
+    </div>
+  );
 }
