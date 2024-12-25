@@ -10,13 +10,11 @@ export default async function LoginPage() {
         <h1 className="font-serif text-superblue text-5xl">
           THE
           <br />
-          <span className="font-bold ">HOMEWORK</span>
+          <span className="font-bold">HOMEWORK</span>
           <br /> MACHINE
         </h1>
         <SignIn>
-          <div className="px-2 py-1 mt-4 border">
-            Use the machine
-          </div>
+          <div className="px-2 py-1 mt-4 border">Use the machine</div>
         </SignIn>
       </div>
     </div>
